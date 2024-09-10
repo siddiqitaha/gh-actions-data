@@ -4,17 +4,15 @@ on:
     branches:
       - main
       - dev
-env:
-  MONGODB_DB_NAME: MONGODB_DB_NAME
 jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest
     env:
-      MONGODB_DB_NAME: gh-actions-demo
-      MONGODB_USERNAME: demo-server-username
-      MONGODB_PASSWORD: lo7Et8bnzxriZFvj
-      MONGODB_CLUSTER_ADDRESS: gh-actions-demo.fg1sz.mongodb.net
+      MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      MONGODB_CLUSTER_ADDRESS: ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
       PORT: 8080
     steps: 
       - name: Get Code
@@ -27,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run server
-        run: npm start & npx wait-on http://127.0.0.1:$PORT
+        run: npm start & npx wait-on http://127.0.0.1:${{ env.PORT }}
       - name: Run tests
         run: npm test
       - name: Output information
@@ -35,11 +33,12 @@ jobs:
           echo "MONGODB_DB_NAME: ${{ env.MONGODB_DB_NAME }}"
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
           echo "MONGODB_CLUSTER_ADDRESS: ${{ env.MONGODB_CLUSTER_ADDRESS }}"
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Output information
-        run: |
-          echo "MONGODB_DB_NAME: $MONGODB_DB_NAME
-          echo "MONGODB_USERNAME: $MONGODB_USERNAME
+
+  # deploy:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Output information
+  #       run: |
+  #         echo "MONGODB_DB_NAME: ${{ env.MONGODB_DB_NAME }}"
+  #         echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
