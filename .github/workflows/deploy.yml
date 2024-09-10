@@ -15,6 +15,12 @@ jobs:
       MONGODB_CLUSTER_ADDRESS: ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
       PORT: 8080
     steps: 
+      - name: Verify environment variables
+        run: |
+          echo "MONGODB_DB_NAME: ${{ env.MONGODB_DB_NAME }}"
+          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+          echo "MONGODB_CLUSTER_ADDRESS: ${{ env.MONGODB_CLUSTER_ADDRESS }}"
+          echo "PORT: ${{ env.PORT }}"
       - name: Get Code
         uses: actions/checkout@v3
       - name: Cache dependencies
