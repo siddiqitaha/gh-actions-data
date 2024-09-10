@@ -4,10 +4,18 @@ on:
     branches:
       - main
       - dev
+env:
+  MONGODB_DB_NAME: MONGODB_DB_NAME
 jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest
+    env:
+      MONGODB_DB_NAME: gh-actions-demo
+      MONGODB_USERNAME: demo-server-username
+      MONGODB_PASSWORD: lo7Et8bnzxriZFvj
+      MONGODB_CLUSTER_ADDRESS: gh-actions-demo.fg1sz.mongodb.net
+      PORT: 8080
     steps:
       - name: Get Code
         uses: actions/checkout@v3
@@ -19,15 +27,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run server
-        run: npm start & npx wait-on http://127.0.0.1:XYZ
+        run: npm start & npx wait-on http://127.0.0.1:$PORT
       - name: Run tests
         run: npm test
       - name: Output information
-        run: echo "..."
+        run: |
+          echo "MONGODB_DB_NAME: MONGODB_DB_NAME"
+          echo "MONGODB_USERNAME: MONGODB_DB_NAME"
+          echo "MONGODB_USERNAME: MONGODB_DB_NAME"
+          echo "MONGODB_CLUSTER_ADDRESS: MONGODB_CLUSTER_ADDRESS"
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Output information
-        run: |        
-          echo "..."
+        run: |
+          echo "MONGODB_DB_NAME: MONGODB_DB_NAME"
+          echo "MONGODB_USERNAME: MONGODB_DB_NAME"
+          echo "MONGODB_USERNAME: MONGODB_DB_NAME"
+          echo "MONGODB_CLUSTER_ADDRESS: MONGODB_CLUSTER_ADDRESS"
