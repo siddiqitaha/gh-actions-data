@@ -6,7 +6,7 @@ on:
       - dev
 jobs:
   test:
-    environment: testing
+    environment: Production
     runs-on: ubuntu-latest
     env:
       MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
