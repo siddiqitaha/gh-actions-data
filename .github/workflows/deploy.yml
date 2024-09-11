@@ -15,13 +15,6 @@ jobs:
       MONGODB_CLUSTER_ADDRESS: gh-actions-demo.fg1sz.mongodb.net
       PORT: 8080
     steps: 
-      - name: Verify environment variables
-        run: |
-          echo "MONGODB_DB_NAME: ${{ env.MONGODB_DB_NAME }}"
-          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
-          echo "MONGODB_CLUSTER_ADDRESS: ${{ env.MONGODB_CLUSTER_ADDRESS }}"
-          echo "PORT: ${{ env.PORT }}"
-        # Do not echo sensitive information like MONGODB_PASSWORD
 
       - name: Get Code
         uses: actions/checkout@v3
@@ -36,13 +29,7 @@ jobs:
         run: npm ci
 
       - name: Run server
-        run: npm start & npx wait-on http://127.0.0.1:${{ env.PORT }}
+        run: npm start & npx wait-on http://127.0.0.1:$PORT
 
       - name: Run tests
         run: npm test
-
-      - name: Output information
-        run: |
-          echo "MONGODB_DB_NAME: ${{ env.MONGODB_DB_NAME }}"
-          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
-          echo "MONGODB_CLUSTER_ADDRESS: ${{ env.MONGODB_CLUSTER_ADDRESS }}"
