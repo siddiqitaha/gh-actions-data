@@ -22,6 +22,7 @@ jobs:
           echo "MONGODB_CLUSTER_ADDRESS: ${{ env.MONGODB_CLUSTER_ADDRESS }}"
           echo "MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}"
           echo "PORT: ${{ env.PORT }}"
+          
       - name: Get Code
         uses: actions/checkout@v3
       - name: Cache dependencies
@@ -40,7 +41,8 @@ jobs:
           echo "MONGODB_DB_NAME: ${{ env.MONGODB_DB_NAME }}"
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
           echo "MONGODB_CLUSTER_ADDRESS: ${{ env.MONGODB_CLUSTER_ADDRESS }}"
-          echo "MONGODB_PASSWORD: ${{ env.MONGODB_PASSWORD }}"
+        env:
+          MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
 
   # deploy:
   #   needs: test
