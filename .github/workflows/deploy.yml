@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MONGODB_DB_NAME: gh-actions-demo
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      MONGODB_USERNAME: demo-server-username
+      MONGODB_PASSWORD: gpgNnZs4vnfAv35l
       MONGODB_CLUSTER_ADDRESS: gh-actions-demo.fg1sz.mongodb.net
       PORT: 8080
     steps: 
